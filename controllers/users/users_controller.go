@@ -9,6 +9,10 @@ import (
 	"strconv"
 )
 
+func TestServiceInterface(){
+ //services.
+}
+
 func getUserId(userIdParam string) (int64, *errors.RestErr) {
 	userId, userErr := strconv.ParseInt(userIdParam, 10, 64)
 	if userErr != nil {
@@ -24,7 +28,7 @@ func Create(c *gin.Context) {
 		c.JSON(restErr.Status, restErr)
 		return
 	}
-	result, saveErr := services.CreateUser(user)
+	result, saveErr := services.UsersService.CreateUser(user)
 	if saveErr != nil {
 		c.JSON(saveErr.Status, saveErr)
 		return
@@ -38,7 +42,7 @@ func Get(c *gin.Context) {
 		c.JSON(idErr.Status, idErr)
 		return
 	}
-	user, getErr := services.GetUser(userId)
+	user, getErr := services.UsersService.GetUser(userId)
 	if getErr != nil {
 		c.JSON(getErr.Status, getErr)
 		return
@@ -63,7 +67,7 @@ func Update(c *gin.Context) {
 	user.Id = userId
 
 	isPartial := c.Request.Method == http.MethodPatch
-	result, err := services.UpdateUser(isPartial, user)
+	result, err := services.UsersService.UpdateUser(isPartial, user)
 	if err != nil {
 		c.JSON(err.Status, err)
 		return
@@ -78,7 +82,7 @@ func Delete(c *gin.Context) {
 		return
 	}
 
-	if err := services.DeleteUser(userId); err != nil {
+	if err := services.UsersService.DeleteUser(userId); err != nil {
 		c.JSON(err.Status, err)
 		return
 	}
@@ -87,7 +91,7 @@ func Delete(c *gin.Context) {
 
 func Search(c *gin.Context) {
 	status := c.Query("status")
-	users, err := services.Search(status)
+	users, err := services.UsersService.Search(status)
 	if err != nil {
 		c.JSON(err.Status, err)
 		return
