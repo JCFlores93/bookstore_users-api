@@ -8,6 +8,11 @@ import (
 	"os"
 )
 
+//MYSQL_USERS_USERNAME=root;
+//MYSQL_USERS_PASSWORD=password;
+//MYSQL_USERS_HOST=172.17.0.2:3306;
+//MYSQL_USERS_SCHEMA=users_db
+
 const (
 	mysql_users_username = "MYSQL_USERS_USERNAME"
 	mysql_users_password = "MYSQL_USERS_PASSWORD"
